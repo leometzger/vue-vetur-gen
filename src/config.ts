@@ -4,7 +4,7 @@
 export interface IConfiguration {
   src: string;
   outdir: string;
-  ignore: string[];
+  ignore: RegExp[];
 }
 
 /**

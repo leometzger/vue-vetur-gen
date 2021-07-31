@@ -22,6 +22,8 @@
   "homepage": "https://github.com/leometzger/vue-vetur-gen#readme",
   "dependencies": {
     "commander": "^7.2.0",
+    "lodash.kebabcase": "^4.1.1",
+    "shelljs": "^0.8.4",
     "vue-docgen-api": "^4.40.0"
   },
   "devDependencies": {
