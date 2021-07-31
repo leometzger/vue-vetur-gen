@@ -1,7 +1,5 @@
-import { IConfiguration } from "../src/config";
 import { ComponentDoc } from "vue-docgen-api";
 import {
-  readComponents,
   generateAttributes,
   generateTags,
   Tag,
@@ -22,7 +20,7 @@ describe("generator.ts", () => {
     {
       displayName: "component-two",
       exportName: "default",
-      description: "Description of component one",
+      description: "Description of component two",
       props: [
         { name: "id", description: "ID Two" },
         { name: "name", description: "Name Two" },
@@ -30,23 +28,13 @@ describe("generator.ts", () => {
     },
   ];
 
-  describe("readComponents", () => {
-    it("", () => {
-      const config: IConfiguration = {
-        ignore: [],
-        outdir: "dist/",
-        src: "src/",
-      };
-    });
-  });
-
   describe("generateAttributes", () => {
     it("Should generate attributes based on doc", () => {
       const expectedAttributes: Attribute[] = [
-        { name: "component-one/id", description: "ID One" },
-        { name: "component-one/items", description: "List items One" },
-        { name: "component-two/id", description: "ID Two" },
-        { name: "component-two/name", description: "Name Two" },
+        { "component-one/id": { description: "ID One" } },
+        { "component-one/items": { description: "List items One" } },
+        { "component-two/id": { description: "ID Two" } },
+        { "component-two/name": { description: "Name Two" } },
       ];
 
       expect(generateAttributes(components)).toEqual(expectedAttributes);
@@ -57,18 +45,21 @@ describe("generator.ts", () => {
     it("Should generate tags from components", () => {
       const expectedTags: Tag[] = [
         {
-          name: "component-one",
-          description: "ID One",
-          attributes: ["component-one/id", "component-one/items"],
+          "component-one": {
+            description: "Description of component one",
+            attributes: ["component-one/id", "component-one/items"],
+          },
         },
         {
-          name: "component-two",
-          description: "ID Two",
-          attributes: ["component-two/id", "component-one/name"],
+          "component-two": {
+            description: "Description of component two",
+            attributes: ["component-two/id", "component-two/name"],
+          },
         },
       ];
+      const tags = generateTags(components);
 
-      expect(generateTags(components)).toEqual(expectedTags);
+      expect(tags).toEqual(expectedTags);
     });
   });
 });

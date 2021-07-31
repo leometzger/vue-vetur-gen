@@ -1,21 +1,21 @@
+import { flatten } from "lodash";
 import { ComponentDoc } from "vue-docgen-api";
 import { IConfiguration } from "./config";
 
-/**
- *
- */
 export interface Attribute {
-  name: string;
-  description: string;
+  [name: string]: {
+    description: string;
+  };
 }
 
 /**
  *
  */
 export interface Tag {
-  name: string;
-  description: string;
-  attributes: string[];
+  [name: string]: {
+    description: string;
+    attributes: string[];
+  };
 }
 
 /**
@@ -30,10 +30,40 @@ export async function readComponents(
   return [];
 }
 
+/**
+ * Transform component docs to
+ * Tags format
+ *
+ * @param components
+ * @returns
+ */
 export function generateTags(components: ComponentDoc[]): Tag[] {
-  return [];
+  return components.map((component) => {
+    return {
+      [component.displayName]: {
+        description: component.description,
+        attributes: component.props.map(
+          (prop) => `${component.displayName}/${prop.name}`
+        ),
+      },
+    };
+  });
 }
 
 export function generateAttributes(components: ComponentDoc[]): Attribute[] {
-  return [];
+  const attributes: Attribute[] = [];
+
+  for (let component of components) {
+    for (let prop of component.props) {
+      const attributeName = `${component.displayName}/${prop.name}`;
+
+      attributes.push({
+        [attributeName]: {
+          description: prop.description,
+        },
+      });
+    }
+  }
+
+  return attributes;
 }
