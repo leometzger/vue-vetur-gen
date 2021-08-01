@@ -2,13 +2,12 @@ import { Tag, Attribute } from "../src/generator";
 import { writeVeturFiles } from "../src/writeVeturFiles";
 
 import { IConfiguration } from "../src/config";
-
 import { IWriter } from "../src/util";
 
 describe("writeVeturFiles", () => {
   const writer: IWriter = {
     write: jest.fn().mockResolvedValue(),
-    writeJSON: jest.fn().mockResolvedValue(),
+    mkdir: jest.fn().mockReturnValue(),
   };
 
   it("should write attribute and tags JSON files", async () => {
@@ -44,7 +43,8 @@ describe("writeVeturFiles", () => {
 
     await writeVeturFiles(writer, config, attributes, tags);
 
-    expect(writer.writeJSON).toBeCalledWith(
+    expect(writer.mkdir).toBeCalledWith("dist/");
+    expect(writer.write).toBeCalledWith(
       expect.stringMatching(/.+dist\/tags.json$/),
       {
         "component-one": {
@@ -58,7 +58,7 @@ describe("writeVeturFiles", () => {
       }
     );
 
-    expect(writer.writeJSON).toBeCalledWith(
+    expect(writer.write).toBeCalledWith(
       expect.stringMatching(/.+dist\/attributes.json$/),
       {
         "component-one/id": { description: "ID of component one" },

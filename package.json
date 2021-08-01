@@ -4,7 +4,7 @@
   "description": "Vetur tags and attributes JSON file genertion",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc src/index.ts --resolveJsonModule --outDir dist/",
+    "build": "tsc src/cli.ts --resolveJsonModule --outDir dist/",
     "test": "jest",
     "dev": "nodemon --watch 'src/' --exec 'ts-node src/cli.ts' -e ts",
     "cli": "ts-node src/cli.ts"

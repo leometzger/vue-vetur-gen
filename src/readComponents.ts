@@ -1,5 +1,5 @@
 import * as shell from "shelljs";
-import kebabCase from "lodash.kebabcase";
+import { default as kebabCase } from "lodash.kebabcase";
 import { ComponentDoc, parse } from "vue-docgen-api";
 import { IConfiguration } from "./config";
 

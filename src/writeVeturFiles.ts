@@ -1,7 +1,7 @@
+import * as path from "path";
+
 import { Attribute, Tag } from "./generator";
 import { IConfiguration } from "./config";
-
-import * as path from "path";
 import { IWriter } from "./util";
 
 /**
@@ -15,17 +15,15 @@ export async function writeVeturFiles(
   attributes: Attribute[],
   tags: Tag[]
 ) {
+  writer.mkdir(configuration.outdir);
   const outputDir = path.resolve(process.cwd(), configuration.outdir);
 
   const tagsJSON = reduceArrayToObject(tags);
   const attributesJSON = reduceArrayToObject(attributes);
 
   await Promise.all([
-    writer.writeJSON(path.resolve(outputDir, "tags.json"), tagsJSON),
-    writer.writeJSON(
-      path.resolve(outputDir, "attributes.json"),
-      attributesJSON
-    ),
+    writer.write(path.resolve(outputDir, "tags.json"), tagsJSON),
+    writer.write(path.resolve(outputDir, "attributes.json"), attributesJSON),
   ]);
 }
 
