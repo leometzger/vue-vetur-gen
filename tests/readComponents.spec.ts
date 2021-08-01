@@ -15,7 +15,7 @@ describe("readComponents", () => {
     },
   ];
 
-  it("Should read vue components", async () => {
+  it("should read vue components", async () => {
     const components = await readComponents({
       ignore: [],
       outdir: ".vetur/",
@@ -25,7 +25,7 @@ describe("readComponents", () => {
     expect(components).toEqual(expectedComponents);
   });
 
-  it("Should ignore patterns passed through configuration", async () => {
+  it("should ignore patterns passed through configuration", async () => {
     const components = await readComponents({
       ignore: [/component-test\.vue/],
       outdir: ".vetur/",

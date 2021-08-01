@@ -46,6 +46,12 @@ export async function readComponents(
   });
 }
 
+/**
+ * @private
+ * @param config
+ * @param path
+ * @returns
+ */
 function isNotIgnored(config: IConfiguration, path: string): boolean {
   if (config.ignore.length === 0) {
     return true;

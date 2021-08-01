@@ -1,5 +1,3 @@
-import * as path from "path";
-
 import {
   Attribute,
   Tag,
@@ -30,7 +28,7 @@ describe("generator.ts", () => {
     ];
 
     describe("generateAttributes", () => {
-      it("Should generate attributes based on doc", () => {
+      it("should generate attributes based on doc", () => {
         const expectedAttributes: Attribute[] = [
           { "component-one/id": { description: "ID One" } },
           { "component-one/items": { description: "List items One" } },
@@ -44,7 +42,7 @@ describe("generator.ts", () => {
     });
 
     describe("generateTags", () => {
-      it("Should generate tags from components", () => {
+      it("should generate tags from components", () => {
         const expectedTags: Tag[] = [
           {
             "component-one": {

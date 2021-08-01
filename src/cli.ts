@@ -1,4 +1,6 @@
+import * as path from "path";
 import { program } from "commander";
+import { IConfiguration } from "./config";
 
 function main() {
   program
@@ -9,7 +11,12 @@ function main() {
 
   program.parse(process.argv);
 
-  const { config, outdir } = program.opts();
+  const { config, outDir, src } = program.opts();
+
+  const configPath = path.resolve(process.cwd(), config);
+  const configurationFile = require(configPath);
+
+  const configuration: IConfiguration = { outDir, src, ...configurationFile };
 }
 
 main();
