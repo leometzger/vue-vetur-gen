@@ -3,6 +3,8 @@ name: Vue Vetur Gen Deploy Docs
 on:
   push:
     branches: [ main ]
+    paths:
+      - docs/**
 
 jobs:
   deploy-docs:
